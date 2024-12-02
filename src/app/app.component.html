@@ -1,40 +1,54 @@
-<div>
-  <h1>Climate Data Viewer</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ClimaConnect</title>
+  <link rel="stylesheet" href="app.component.css" />
+</head>
+<body>
+  <div>
+    <h1>ClimaConnect</h1>
 
-  <label for="continent">Select Continent:</label>
-  <select id="continent" (change)="onContinentSelect($event)">
-    <option *ngFor="let continent of continents" [value]="continent.continentid">
-      {{ continent.continentname }}
-    </option>
-  </select>
-  <br /><br />
-  <label for="country">Select Country:</label>
-  <select id="country" (change)="onCountrySelect($event)">
-    <option *ngFor="let country of countries" [value]="country.countryid">
-      {{ country.countryname }}
-    </option>
-  </select>
+    <label for="continent">Select Continent:</label>
+    <select id="continent" (change)="onContinentSelect($event)">
+      <option *ngFor="let continent of continents" [value]="continent.continentid">
+        {{ continent.continentname }}
+      </option>
+    </select>
+    <br /><br />
 
-  &nbsp;&nbsp;<button (click)="fetchTemperatureData()">Show Temperature Data</button>
+    <label for="country">Select Country:</label>
+    <select id="country" (change)="onCountrySelect($event)">
+      <option *ngFor="let country of countries" [value]="country.countryid">
+        {{ country.countryname }}
+      </option>
+    </select>
+    <br /><br />
 
-  <br /><br />
-  <button>Filter by Years</button>
+    <button (click)="fetchTemperatureData()">Show Temperature Data</button>
+    <br /><br />
 
-  <div *ngIf="temperatureData.length > 0">
-    <h2>Temperature Data</h2>
-    <table border="1">
-      <thead>
-        <tr>
-          <th>Year</th>
-          <th>Temperature</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let record of temperatureData">
-          <td>{{ record.year }}</td>
-          <td>{{ record.temperature }}</td>
-        </tr>
-      </tbody>
-    </table>
+    <button>Filter by Years</button>
+    <br /><br />
+
+    <div *ngIf="temperatureData.length > 0">
+      <h2>Temperature Data</h2>
+      <table border="1">
+        <thead>
+          <tr>
+            <th>Year</th>
+            <th>Temperature</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let record of temperatureData">
+            <td>{{ record.year }}</td>
+            <td>{{ record.temperature }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
-</div>
+</body>
+</html>
