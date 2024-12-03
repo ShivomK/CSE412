@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
+//import { ChartData, ChartOptions, ChartType } from 'chart.js';
 import * as d3 from 'd3';
 
 
@@ -16,6 +17,7 @@ export class AppComponent implements OnInit {
   temperatureData: any[] = [];
   selectedContinent: number | null = null;
   selectedCountry: number | null = null;
+  title = 'climate-visualization';
 
   constructor(private http: HttpClient) {}
 
@@ -50,6 +52,7 @@ export class AppComponent implements OnInit {
         .get<any[]>(`http://localhost:2626/api/temperature/${this.selectedCountry}`)
         .subscribe((data) => {
           this.temperatureData = data;
+          console.log("Calling drawChart...");
           this.drawChart();
         });
     }
@@ -60,9 +63,19 @@ export class AppComponent implements OnInit {
   }
 
   drawChart(): void {
+    console.log("DrawChart called!");
+    console.log("Data: ", this.temperatureData[10]);
+
+    // Filter out data with null temperature 
+    this.temperatureData = this.temperatureData.filter(d => d.temperature !== null);
+    if (this.temperatureData.length === 0) { 
+      console.log("No valid temperature data to display."); 
+      return;
+    }
+
     d3.select('#chart').selectAll('*').remove();
 
-    const margin = { top: 20, right: 30, bottom: 40, left: 50 };
+    const margin = { top: 20, right: 30, bottom: 40, left: 30 };
     const width = 800 - margin.left - margin.right;
     const height = 400 - margin.top - margin.bottom;
 
@@ -79,13 +92,17 @@ export class AppComponent implements OnInit {
       .domain(d3.extent(this.temperatureData, (d: any) => d.year) as [number, number])
       .range([0, width]);
 
+    const yDomain = d3.extent(this.temperatureData, (d: any) => d.temperature); 
+    console.log("Y domain:", yDomain);
+
     const y = d3
       .scaleLinear()
-      .domain([d3.min(this.temperatureData, (d: any) => d.temperature) as number,
-               d3.max(this.temperatureData, (d: any) => d.temperature) as number])
+      .domain([-3.3, 5.3])
+      // .domain([d3.min(this.temperatureData, (d: any) => d.temperature) - 1 as number,
+      //          d3.max(this.temperatureData, (d: any) => d.temperature) as number])
       .range([height, 0]);
 
-    svg.append('g').attr('transform', `translate(0,${height})`).call(d3.axisBottom(x));
+    svg.append('g').attr('transform', `translate(0,${height})`).call(d3.axisBottom(x).tickFormat(d3.format('d')));
     svg.append('g').call(d3.axisLeft(y));
 
     svg
@@ -93,7 +110,7 @@ export class AppComponent implements OnInit {
       .datum(this.temperatureData)
       .attr('fill', 'none')
       .attr('stroke', 'steelblue')
-      .attr('stroke-width', 1.5)
+      .attr('stroke-width', 2.5)
       .attr(
         'd',
         d3
