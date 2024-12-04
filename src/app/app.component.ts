@@ -13,16 +13,29 @@ import * as d3 from 'd3';
 })
 export class AppComponent implements OnInit {
   continents: any[] = [];
+  years: number[] = [];
+  startYear: number | null = null;
+  endYear: number | null = null;
   countries: any[] = [];
   temperatureData: any[] = [];
   selectedContinent: number | null = null;
   selectedCountry: number | null = null;
   title = 'climate-visualization';
+  showYearSelection: boolean = false;
 
   constructor(private http: HttpClient) {}
 
   ngOnInit(): void {
     this.fetchContinents();
+    this.years = Array.from({ length: 2023 - 1961 + 1}, (_, i) => 1960 + i);
+  }
+
+  toggleYearFilter(): void {
+    this.showYearSelection = !this.showYearSelection;
+  }
+
+  hideYearFilter(): void {
+    this.showYearSelection = false;
   }
 
   fetchContinents(): void {
@@ -46,6 +59,14 @@ export class AppComponent implements OnInit {
     console.log(this.selectedCountry);
   }
 
+  onStartYear(event: any): void {
+    this.startYear = +event.target.value;
+  }
+
+  onEndYear(event: any): void {
+    this.endYear = +event.target.value;
+  }
+
   fetchTemperatureData(): void {
     if (this.selectedCountry !== null) {
       this.http
@@ -60,6 +81,19 @@ export class AppComponent implements OnInit {
     {
       console.log('Please select a country');
     }
+  }
+  getFilteredTemperatureData()
+  {
+    if(!this.selectedCountry || !this.startYear || !this.endYear){
+      alert('Please select a country and a valid year range');
+    }
+
+    this.http
+        .get<any[]>(`http://localhost:2626/api/temperature/${this.selectedCountry}/${this.startYear}/${this.endYear}`)
+        .subscribe((data) => {
+          this.temperatureData = data;
+          this.drawChart();
+        });
   }
 
   drawChart(): void {

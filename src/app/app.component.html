@@ -20,6 +20,7 @@
   <!-- <h1>Climate Data Viewer</h1> -->
       <label for="continent">Select Continent:</label>&nbsp;&nbsp;
       <select id="continent" (change)="onContinentSelect($event)">
+        <option value="">Select Continent</option>
         <option *ngFor="let continent of continents" [value]="continent.continentid">
           {{ continent.continentname }}
         </option>
@@ -27,15 +28,33 @@
       <br /><br />
       <label for="country">Select Country:</label>&nbsp;&nbsp;
       <select id="country" (change)="onCountrySelect($event)">
+        <option value="">Select Country</option>
         <option *ngFor="let country of countries" [value]="country.countryid">
           {{ country.countryname }}
         </option>
       </select>
-      
-  &nbsp;&nbsp;<button (click)="fetchTemperatureData()">Show Temperature Data</button>
+      &nbsp;&nbsp;<button (click)="fetchTemperatureData()">Show Temperature Data</button>
 
-  <br /><br />
-  <button>Filter by Years</button>
+      <br /><br />
+      <button (click)="toggleYearFilter()">Filter By Year</button>
+
+      <div *ngIf="showYearSelection">
+        <label for="startYear">Start Year:</label>&nbsp;&nbsp;
+          <select id="startYear" (change)="onStartYear($event)">
+            <option value="">Select Start Year</option>
+            <option *ngFor="let year of years" [value]="year">{{ year }}</option>
+          </select>
+        &nbsp;&nbsp;
+        <label for="endYear">End Year:</label>&nbsp;&nbsp;
+          <select id="endYear" (change)="onEndYear($event)">
+            <option value="">Select End Year</option>
+            <option *ngFor="let year of years" [value]="year">{{ year }}</option>
+          </select>            
+        &nbsp;&nbsp;<button (click)="getFilteredTemperatureData()">Show Filtered Data</button>
+        <br />
+        <button (click)="hideYearFilter()">Hide Year Filter</button>
+      </div>
+
   <br /><br />
   <div id="chart"></div>
   
