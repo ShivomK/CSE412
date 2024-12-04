@@ -7,10 +7,11 @@ app.use(cors());
 app.use(express.json());
 
 const pool = new Pool({
-    user: 'shivomkhare', // Replace with your PostgreSQL username
+    user: 'postgres', // Replace with your PostgreSQL username
     host: 'localhost',     // Replace with your host (default: localhost)
-    database: 'shivomkhare', // Replace with your database name
-    port: 1226            // Replace with your port (default: 5432)
+    database: '412Projectdb', // Replace with your database name
+    password: 'Donthack007$',
+    port: 5432           // Replace with your port (default: 5432)
 });
 
 // Fetch all countries with their continent
@@ -20,7 +21,7 @@ app.get('/api/countries', async (req, res) => {
             SELECT c.countryid, c.countryname, c.countrycode, co.continentname
             FROM country c
             JOIN continent co ON c.continentid = co.continentid
-        `);
+        `);S
         res.json(result.rows);
     } catch (err) {
         res.status(500).json({ error: err.message });
