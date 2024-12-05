@@ -7,11 +7,15 @@ app.use(cors());
 app.use(express.json());
 
 const pool = new Pool({
-    user: 'postgres', // Replace with your PostgreSQL username
+    user: 'shivomkhare', // Replace with your PostgreSQL username
     host: 'localhost',     // Replace with your host (default: localhost)
-    database: '412Projectdb', // Replace with your database name
-    password: 'Donthack007$',
-    port: 5432           // Replace with your port (default: 5432)
+    database: 'shivomkhare', // Replace with your database name
+    port: 1226           // Replace with your port (default: 5432)
+    // user: 'postgres', // Replace with your PostgreSQL username
+    // host: 'localhost',     // Replace with your host (default: localhost)
+    // database: '412Projectdb', // Replace with your database name
+    // password: 'Donthack007$',
+    // port: 5432           // Replace with your port (default: 5432)
 });
 
 // Fetch all countries with their continent
