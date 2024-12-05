@@ -1,26 +1,74 @@
 <div>
-  <h1>Climate Data Viewer</h1>
 
-  <label for="continent">Select Continent:</label>
-  <select id="continent" (change)="onContinentSelect($event)">
-    <option *ngFor="let continent of continents" [value]="continent.continentid">
-      {{ continent.continentname }}
-    </option>
-  </select>
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Funnel+Display:wght@300..800&family=Kaushan+Script&display=swap" rel="stylesheet">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ClimaConnect</title>
+    <link rel="stylesheet" href="app.component.css" />
+  </head>
+  <body>
+    <div>
+      <h1>
+        <span class="half-color-1">Clima</span>
+        <span class="half-color-2">Connect</span>
+      </h1>
+  <!-- <h1>Climate Data Viewer</h1> -->
+  <div class="form-group">
+      <label for="continent">Select Continent:</label>&nbsp;&nbsp;
+      <select id="continent" (change)="onContinentSelect($event)">
+        <option value="">Select Continent</option>
+        <option *ngFor="let continent of continents" [value]="continent.continentid">
+          {{ continent.continentname }}
+        </option>
+      </select>
+      <br /><br />
+      <label for="country">Select Country:</label>&nbsp;&nbsp;
+      <select id="country" (change)="onCountrySelect($event)">
+        <option value="">Select Country</option>
+        <option *ngFor="let country of countries" [value]="country.countryid">
+          {{ country.countryname }}
+        </option>
+      </select>
+    </div>
+    <div class="button-group">
+      <button (click)="fetchTemperatureData()">Show Temperature Data</button>
+    <button (click)="toggleYearFilter()">Filter By Year</button>
+    <button (click)="toggleGlobalData()">Global Average</button>
+  </div>
+
+  <div *ngIf="showYearSelection" class="year-filter">
+    <label for="startYear">Start Year:</label>&nbsp;&nbsp;
+    <select id="startYear" (change)="onStartYear($event)">
+      <option value="">Select Start Year</option>
+      <option *ngFor="let year of years" [value]="year">{{ year }}</option>
+    </select>
+    &nbsp;&nbsp;
+    <label for="endYear">End Year:</label>&nbsp;&nbsp;
+    <select id="endYear" (change)="onEndYear($event)">
+      <option value="">Select End Year</option>
+      <option *ngFor="let year of years" [value]="year">{{ year }}</option>
+    </select>
+  
+    <div class="button-group-year">
+      <button (click)="getFilteredTemperatureData()">Show Filtered Data</button>
+      <button (click)="hideYearFilter()">Hide Year Filter</button>
+    </div>
+  </div>
+  
+
   <br /><br />
-  <label for="country">Select Country:</label>
-  <select id="country" (change)="onCountrySelect($event)">
-    <option *ngFor="let country of countries" [value]="country.countryid">
-      {{ country.countryname }}
-    </option>
-  </select>
+  <div id="chart"></div>
+</div>
+  
 
-  &nbsp;&nbsp;<button (click)="fetchTemperatureData()">Show Temperature Data</button>
-
-  <br /><br />
-  <button>Filter by Years</button>
-
-  <div *ngIf="temperatureData.length > 0">
+  
+  
+  <!-- <div *ngIf="temperatureData.length > 0">
     <h2>Temperature Data</h2>
     <table border="1">
       <thead>
@@ -36,5 +84,5 @@
         </tr>
       </tbody>
     </table>
-  </div>
-</div>
+  </div> -->
+

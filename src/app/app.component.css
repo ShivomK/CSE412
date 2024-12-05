@@ -1,0 +1,165 @@
+/* General Styling */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #e6e4f6;
+    color: #333;
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* Container for the viewer */
+  div {
+    max-width: 1000px;
+    margin: 20px auto;
+    padding: 20px;
+    background: #f0f1f9;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    text-align: center;
+  }
+  
+  /* Title Styling */
+  h1 {
+    margin-bottom: 20px; 
+  }
+
+  .half-color-1 {
+    color: rgb(23, 113, 169);
+    margin-bottom: 20px;
+    font-family: "Funnel Display", sans-serif;
+    /* font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; */
+  }
+
+  .half-color-2 {
+    color: rgb(8, 124, 72);
+    margin-bottom: 20px;
+    font-family: "Kaushan Script", cursive;
+    font-size: 1.4em;
+  }
+
+  /* Form Styling */
+  label {
+    font-size: 16px;
+    font-weight: bold;
+    color: rgb(20, 95, 141);
+    font-family: "Funnel Display", sans-serif;
+  }
+
+  select {
+    font-size: 14px;
+    padding: 5px 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  /* Button Styling */
+  button {
+    background-color: rgb(75, 136, 108);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 14px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+  }
+  
+  button:hover {
+    background-color: rgb(23, 113, 169);
+    transform: scale(1.05); /* Add scaling effect */
+    transition: transform 0.2s ease; /* Smooth scaling animation */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Add shadow */
+  }
+  
+  /* Table Styling */
+  table {
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: collapse;
+  }
+  
+  th, td {
+    padding: 10px;
+    text-align: left;
+    border: 1px solid #ddd;
+  }
+  
+  th {
+    background-color: #34495e;
+    color: white;
+  }
+  
+  tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+
+  .kaushan-script-regular {
+    font-family: "Kaushan Script", cursive;
+    font-weight: 400;
+    font-style: normal;
+  }
+
+  .funnel-display-firstFont {
+    font-family: "Funnel Display", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 600px) {
+    div {
+      padding: 10px;
+    }
+  
+    button {
+      font-size: 12px;
+      padding: 8px 15px;
+    }
+  
+    select {
+      width: 100%;
+    }
+  
+    table {
+      font-size: 12px;
+    }
+}
+
+.button-group {
+  display: flex;
+  justify-content: center; /* Center the buttons horizontally */
+  gap: 1rem; /* Add spacing between the buttons */
+  margin-top: 1rem; /* Add some space above the buttons */
+}
+
+button {
+  background-color: rgb(75, 136, 108);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 14px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: rgb(23, 113, 169);
+  transform: scale(1.05); /* Add scaling effect */
+    transition: transform 0.2s ease; /* Smooth scaling animation */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Add shadow */
+}
+
+
+.button-group-year {
+  display: flex;
+  justify-content: center; /* Center the buttons horizontally */
+  gap: 1rem; /* Add spacing between buttons */
+  margin-top: 1rem; /* Add space above the buttons */
+}
+
+.year-filter select {
+  margin-bottom: 1rem; /* Add space between dropdowns and buttons */
+}
