@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 //import { ChartData, ChartOptions, ChartType } from 'chart.js';
+//import { ChartData, ChartOptions, ChartType } from 'chart.js';
 import * as d3 from 'd3';
 
 
@@ -19,7 +20,7 @@ export class AppComponent implements OnInit {
   countries: any[] = [];
   temperatureData: any[] = [];
   globalTemperatureData: any[] = []; // Store global average temperature data
-isGlobalDataVisible: boolean = false; // Track if global data is displayed
+  isGlobalDataVisible: boolean = false; // Track if global data is displayed
 
   selectedContinent: number | null = null;
   selectedCountry: number | null = null;
@@ -133,6 +134,16 @@ isGlobalDataVisible: boolean = false; // Track if global data is displayed
   
 
   drawChart(): void {
+    console.log("DrawChart called!");
+    console.log("Data: ", this.temperatureData[10]);
+
+    // Filter out data with null temperature 
+    this.temperatureData = this.temperatureData.filter(d => d.temperature !== null);
+    if (this.temperatureData.length === 0) { 
+      console.log("No valid temperature data to display."); 
+      return;
+    }
+
     d3.select('#chart').selectAll('*').remove();
   
     const margin = { top: 20, right: 30, bottom: 40, left: 30 };
@@ -166,6 +177,7 @@ isGlobalDataVisible: boolean = false; // Track if global data is displayed
       .datum(this.temperatureData)
       .attr('fill', 'none')
       .attr('stroke', 'steelblue')
+      .attr('stroke-width', 2.5)
       .attr('stroke-width', 2.5)
       .attr(
         'd',
